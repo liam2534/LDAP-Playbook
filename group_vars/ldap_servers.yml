@@ -1,6 +1,7 @@
-ubuntu:
-  hosts:
-    192.168.1.116
-rocky:
-  hosts:
-    192.168.1.118
+all:  
+  ubuntu:
+    hosts:
+      192.168.1.20
+  rocky:
+    hosts:
+      192.168.1.21
