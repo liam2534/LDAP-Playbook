@@ -1,0 +1,25 @@
+[sssd]
+services = nss, pam
+config_file_version = 2
+domains = ldap.goauthentik.io
+
+[domain/ldap.goauthentik.io]
+id_provider = ldap
+auth_provider = ldap
+ldap_uri = ldap://192.168.1.3:389
+ldap_search_base = dc=ldap,dc=goauthentik,dc=io
+ldap_default_bind_dn = cn=liam,ou=users,dc=ldap,dc=goauthentik,dc=io
+ldap_default_authtok = authentikballs
+ldap_tls_reqcert = never
+cache_credentials = true
+enumerate = true
+
+# Tell SSSD which attributes to use
+ldap_user_object_class = user
+ldap_user_name = cn
+ldap_user_uid_number = uidNumber
+ldap_user_gid_number = gidNumber
+ldap_user_home_directory = homeDirectory
+ldap_user_shell = loginShell
+ldap_group_object_class = groupOfNames
+ldap_group_name = cn

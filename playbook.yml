@@ -1,0 +1,7 @@
+---
+- name: configure LDAP 
+  hosts: ldap_clients
+  become: yes
+
+  roles: 
+    - sssd

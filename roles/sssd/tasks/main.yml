@@ -1,0 +1,36 @@
+---
+- name: Install SSSD packages on Ubuntu/Debian
+  ansible.builtin.apt:
+    name:
+      - sssd-ldap
+      - ldap-utils
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: put in the sssd.conf file
+  ansible.builtin.template:
+    src: sssd.conf.j2
+    dest: /etc/sssd/sssd.conf
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: enable home directory creation
+  ansible.builtin.command:
+    cmd: pam-auth-update --enable mkhomedir
+  when: ansible_os_family == "Debian"
+  
+- name: enable and start the sssd daemon
+  ansible.builtin.systemd:
+    name: sssd
+    enabled: yes
+    state: started
+
+
+# Todo
+# -install SSSD DONE
+# -make the /etc/sssd/sssd.conf file DONE
+#   -or at least put the template sssd.conf file from the playbook into the sssd directory
+# -enable home directory creation DONE
+# -start and enable sssd daemon
